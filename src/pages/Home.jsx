@@ -16,6 +16,7 @@ import HomeLayout from "../components/layout/HomeLayout";
 import Label from "../components/common/Label";
 import UpdateModel from "../components/UpdateModel";
 import ListItem from "../components/ListItem";
+import Footer from "../components/common/Footer";
 
 const Home = () => {
   const task = useSelector((state) => state.task);
@@ -112,11 +113,7 @@ const Home = () => {
         <Label className={"text-sm"}>Count : {count}</Label>
       </div>
 
-      <div className="flex mt-5 bg-gray-200 px-8 py-4 rounded-lg justify-between">
-        <Button onClick={() => handleStatus("all")}>All</Button>
-        <Button onClick={() => handleStatus("active")}>Active</Button>
-        <Button onClick={() => handleStatus("complete")}>Complete</Button>
-      </div>
+      <Footer handleStatus={handleStatus} />
 
       {selectedTask && <UpdateModel task={selectedTask} />}
     </HomeLayout>

@@ -7,7 +7,6 @@ import { handleCheckboxChange } from "../../store/rootSlice";
 import useLocalStorage from "../../hooks/useLocalStorage";
 
 const ListItem = ({ task, handleEdit, handleRemove }) => {
-
   const [isChecked, setIsChecked] = useState(task.checked);
   const dispatch = useDispatch();
   const [tasks, setTasks, clearTask] = useLocalStorage("tasks", []);
@@ -29,10 +28,14 @@ const ListItem = ({ task, handleEdit, handleRemove }) => {
           type="checkbox"
           id={task.id}
           className="h-4 w-4"
-          checked={isChecked}
+          checked={task.status === "complete" ? true : isChecked}
           onChange={() => handleCheckbox(task.id)}
         />
-        <Label className={`${isChecked ? "line-through" : ""}`}>
+        <Label
+          className={`${
+            isChecked || task.status === "complete" ? "line-through" : ""
+          }`}
+        >
           {task.name}
         </Label>
       </div>
@@ -41,7 +44,9 @@ const ListItem = ({ task, handleEdit, handleRemove }) => {
         <Button
           iconName={faPenToSquare}
           onClick={handleEdit}
-          className={`${isChecked ? "hidden" : ""}`}
+          className={`${
+            isChecked || task.status === "complete" ? "hidden" : ""
+          }`}
         ></Button>
         <Button iconName={faTrash} onClick={handleRemove}></Button>
       </div>
